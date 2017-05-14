@@ -14,4 +14,3 @@ In this blog, we want to share some of our novel solutions and hopefully teach y
 
 ### Contact Us
 <a href="http://toreforge.com/">![_config.yml]({{ site.baseurl }}/images/logo2.gif)</a>  
-[email@domain.com](mailto:email@domain.com)
