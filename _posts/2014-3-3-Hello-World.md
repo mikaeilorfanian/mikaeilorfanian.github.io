@@ -4,8 +4,6 @@ title: Introducing XXX Dev Blog
 published: true
 ---
 
-![_config.yml]({{ site.baseurl }}/images/logo2.gif)
-
 Hello and welcome!
 
 At XXX, we work on turning ideas into successful companies. In the past 6 years, we've created on a dozen successful companies in different industries like Education, Dev Ops, and eCommerce.
