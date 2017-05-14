@@ -13,5 +13,5 @@ Since we build companies, we always have projects in every step of development: 
 In this blog, we want to share some of our novel solutions and hopefully teach you a thing or two ;)
 
 ### Contact Us
-![_config.yml]({{ site.baseurl }}/images/logo2.gif)(http://toreforge.com/)  
+[![_config.yml]({{ site.baseurl }}/images/logo2.gif)](http://toreforge.com/)
 [email@domain.com](mailto:email@domain.com)
