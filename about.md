@@ -1,15 +1,15 @@
 ---
 layout: page
-title: About
+title: About Us
 permalink: /about/
 ---
 
-Some information about you!
+At XXX, we forge ideas into Enterprises!
 
 ### More Information
 
 A place to include any other types of information that you'd like to include about yourself.
 
-### Contact me
-
+### Contact Us
+[url](http://toreforge.com/)
 [email@domain.com](mailto:email@domain.com)
