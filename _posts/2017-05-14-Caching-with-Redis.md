@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Caching with Redis and Django, The Clean/Pythonic Way'
+title: 'Caching with Redis The Pythonic Way'
 published: true
 ---
 # Cahcing with Redis The Pythonic Way
