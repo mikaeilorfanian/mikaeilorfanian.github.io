@@ -6,25 +6,36 @@ published: true
 In this post, we'd like to discuss how we've used Redis to achieve a 100x improvement in our Django application's performance.
 
 ## The Problem  
-Our [mobile application](https://play.google.com/store/apps/details?id=com.airschool.student) shows a list of online students to teachers and vice versa. A teacher or student who opens our mobile app is then able to make a VOIP call to an online student or teacher. If we were to use our main persistent database(Postgres) to enable this feature, we'd quickly run into scalability issues. To see why, let me explain in detail what happens every time you log in to a social application(like facebook or our appp):  
+Our [mobile application](https://play.google.com/store/apps/details?id=com.airschool.student) shows a list of online students to teachers and vice versa. A teacher or student who opens our mobile app is then able to make a VOIP call to an online student or teacher. If we were to use our main persistent database(Postgres) to enable this feature, we'd quickly run into scalability issues. To see why, let me explain in detail what happens every time you log in to a social application(like facebook or our app):  
 - User logs in. The backend has to update the user's status. 
 - This user's friends or other in their social circle is able to see the user's status.
 - If there are more than 20 or 30 online users to show, we may need to paginate the results because 1)We don't want to transfer huge amounts of info the app at once 2)We know that the user is unlikely to actually go through all the results, so why send them to the user in the first place?
 - If we paginate, we'd need to keep track of the results we've already sent to the user.
-- We also need to update the online users' status when they go offline.
-Phew..., this feature has turned out to be much more complicated than we had orginally thought. Each time a user goes online, we hit our main db a dozen time and we haven't even considered all the other parts of our app that require the use of our db.  
+- We also need to update the online users' status when they go offline.  
+
+Phew..., this feature has turned out to be much more complicated than we had orginally thought. Each time a user goes online, we hit our main db at least a dozen times and we haven't even considered the other parts of our app that require the use of our db.  
 
 ## Intro to Caching
-Our main db needs will soon be under too much stress! Enter Redis. Redis is an in-memory no-SQL db which is much much faster than relational databases. So, we will cache users' status in Redis.  
-Now, when a user goes online our back-end first checks Redis for a list of online users before making a database call. Most of the time, the calls to the main db won't be necessary because Redis will have what we need.  
+Our main db will soon collapse under too much stress!  
+### Enter Redis
+Redis is an in-memory no-SQL db which is much faster and easier to work with than relational databases.  
+To save our main db, we will cache users' status in Redis. Redis is pretty flexible, so we can put something like a Python set into it which will hold the IDs and basic info of online users.  
+Now, after a user A goes online 
+- We put A's status into Redis
+- We ask Redis for a list of online users 
+- Only if Redis doesn't have this list, we make a call to the main db
+- But, most of the time, the calls to the main db won't be necessary because Redis will have what we need.  
+
+### Not So Fast: A Few Things to Consider
 When caching anything, you need to think carefully about the follwing questions:  
-1. What data structure will hold your data?
+1. What data structure will hold your data in Redis?
 2. When do you update your cached data?
 3. When do you expire your cached data?
 4. What other parts of your code will use this data?
+If you don't know why question 1 is important, I suggest you try the oline interactive Redis tutorial. In our solution, we decided to gather all online users' info into 1 collection. Maybe, we can hold each user's info and status in a separate collection? The answer to this question depends on the last 3 questions above!!  
 
 ## First Implementation
-Django comes with a low-level API to redis, so let's use it:
+Django comes with a low-level interface to redis, so let's use it:
 **code**
 As you can see, this solution is not Pythonic at all. In other words, this code smells. Here's why:
 1. We're using raw strings as keys to fetch data from Redis.
