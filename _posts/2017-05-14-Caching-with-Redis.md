@@ -3,7 +3,6 @@ layout: post
 title: 'Caching with Redis The Pythonic Way'
 published: true
 ---
-# Cahcing with Redis The Pythonic Way
 In this post, we'd like to discuss how we've used Redis to achieve a 100x improvement in our Django application's performance.
 
 ## The Problem  
