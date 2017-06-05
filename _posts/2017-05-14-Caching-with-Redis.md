@@ -15,10 +15,10 @@ Our educational [mobile application](https://play.google.com/store/apps/details?
 Phew..., this feature has turned out to be more complicated than we had orginally thought. Each time a user goes online, we hit our main db at least a dozen times. Our server would crash with a couple thousand users. And, we haven't even considered how other features of the app use our database.  
 
 ## Caching to the Rescue
-When problems such as this one show up, the usual fix is to use a cache. The idea of caching is used everywhere in the digital world and the physical world. For example, I keep my bus pass in my pocket during the morning commute. When I go shopping, I keep my debit card in my pocket. This way, I don't have to reach into my backpack and search for them when I need these cards. The same idea is used at the CPU and Operating System level of digital systems to speed things up. We can implete a solution using this simple idea to save our soon-to-crash application.  
+When problems such as this one show up, the usual fix is to use a cache. The idea of caching is used everywhere in the world(digital and physical). When I go shopping, I keep my debit card in my pocket. This way, I don't have to reach into my backpack and search for it when I need it. The same idea is by your personal computer's CPU and Operating System to speed things up. We can use this simple idea to save our application.  
 ### Enter Redis
 Redis is an in-memory key-value database which is much faster than relational databases.  
-To save our main db(which is a relational one), we will cache users' status in Redis. Redis is pretty flexible, so we can put a collection of user IDs into it. This collection can be a set(like Python `set`s).
+We will cache(save) users' status in a Redis collection. This collection will be a set of online users' IDs(A Redis set is very similar to a Python `set`).
 Now, when you open our app
 - We put your status into Redis
 - We ask Redis for a list of online users 
