@@ -3,40 +3,41 @@ layout: post
 title: 'Caching with Redis The Pythonic Way'
 published: true
 ---
-In this post, we'd like to discuss how we've used Redis to achieve a 100x improvement in our Django application's performance.
+In this post, we'd like to discuss how we've used Redis to make an infinite improvement in our Django application's performance. By infinite, I mean the difference between an app that crashes under heavy load and an app that doesn't. The difference between an app that works and an app that doesn't work is infinite!  
 
 ## The Problem  
-Our [mobile application](https://play.google.com/store/apps/details?id=com.airschool.student) shows a list of online students to teachers and vice versa. A teacher or student who opens our mobile app is then able to make a VOIP call to an online student or teacher. If we were to use our main persistent database(Postgres) to enable this feature, we'd quickly run into scalability issues. To see why, let me explain in detail what happens every time you log in to a social application(like facebook or our app):  
-- User logs in. The backend has to update the user's status. 
-- This user's friends or other in their social circle is able to see the user's status.
-- If there are more than 20 or 30 online users to show, we may need to paginate the results because 1)We don't want to transfer huge amounts of info the app at once 2)We know that the user is unlikely to actually go through all the results, so why send them to the user in the first place?
-- If we paginate, we'd need to keep track of the results we've already sent to the user.
-- We also need to update the online users' status when they go offline.  
+Our educational [mobile application](https://play.google.com/store/apps/details?id=com.airschool.student) has a social feature that shows a list of online students to teachers(and vice versa). If we were to use our main persistent database(Postgres) to enable this feature, we'd quickly run into scalability issues. To see why, here's what happens every time you log in to a social application(like facebook or Skype):  
+- You log in. The server has to update your status so others can see that you're online.  
+- If there are more than 20 or 30 online users to show, we may need to paginate the results because 1)We don't want to transfer huge amounts of info the app at once 2)We know that the user is unlikely to actually go through all the results, so why send them to the user in the first place?  
+- If we paginate, we'd need to keep track of the results we've already sent to the user.  
+- We also need to update your status when you go offline.  
 
-Phew..., this feature has turned out to be much more complicated than we had orginally thought. Each time a user goes online, we hit our main db at least a dozen times and we haven't even considered the other parts of our app that require the use of our db.  
+Phew..., this feature has turned out to be more complicated than we had orginally thought. Each time a user goes online, we hit our main db at least a dozen times. Our server would crash with a couple thousand users. And, we haven't even considered how other features of the app use our database.  
 
-## Intro to Caching
-Our main db will soon collapse under too much stress!  
+## Caching to the Rescue
+When problems such as this one show up, the usual fix is to use a cache. The idea of caching is used everywhere in the digital world and the physical world. For example, I keep my bus pass in my pocket during the morning commute. When I go shopping, I keep my debit card in my pocket. This way, I don't have to reach into my backpack and search for them when I need these cards. The same idea is used at the CPU and Operating System level of digital systems to speed things up. We can implete a solution using this simple idea to save our soon-to-crash application.  
 ### Enter Redis
-Redis is an in-memory no-SQL db which is much faster and easier to work with than relational databases.  
-To save our main db, we will cache users' status in Redis. Redis is pretty flexible, so we can put something like a Python set into it which will hold the IDs and basic info of online users.  
-Now, after a user A goes online 
-- We put A's status into Redis
+Redis is an in-memory key-value database which is much faster than relational databases.  
+To save our main db(which is a relational one), we will cache users' status in Redis. Redis is pretty flexible, so we can put a collection of user IDs into it. This collection can be a set(like Python `set`s).
+Now, when you open our app
+- We put your status into Redis
 - We ask Redis for a list of online users 
 - Only if Redis doesn't have this list, we make a call to the main db
 - But, most of the time, the calls to the main db won't be necessary because Redis will have what we need.  
+The idea behind this strategy is exactly the same idea that I use to keep my most frequently used cards right in my pocket.  
 
 ### Not So Fast: A Few Things to Consider
 When caching anything, you need to think carefully about the follwing questions:  
-1. What data structure will hold your data in Redis?
+1. What Redis data structure will hold your data?
 2. When do you update your cached data?
 3. When do you expire your cached data?
 4. What other parts of your code will use this data?
-If you don't know why question 1 is important, I suggest you try the oline interactive Redis tutorial. In our solution, we decided to gather all online users' info into 1 collection. Maybe, we can hold each user's info and status in a separate collection? The answer to this question depends on the last 3 questions above!!  
+If you don't know why question 1 is important, I suggest you try the oline interactive Redis tutorial.  
+In our solution, we decided to gather all online users' info into one collection. Maybe, we can hold each user's info and status in a separate collection? The answer to this question depends on the last 3 questions above!!  
 
 ## First Implementation
-Django comes with a low-level interface to redis, so let's use it:
-**code**
+Django comes with a low-level interface to redis, so let's use it:  
+**code**  
 As you can see, this solution is not Pythonic at all. In other words, this code smells. Here's why:
 1. We're using raw strings as keys to fetch data from Redis.
 2. Since we're using raw strings, it's hard to find out if our online users' cache is being used by other modules.
@@ -45,7 +46,7 @@ As you can see, this solution is not Pythonic at all. In other words, this code 
 5. If someone else looks at this code, they'd have a hard time understanding what this cache represents and what they can do with it or to it.
 
 ## Second Implementation
-**code**
+**code**  
 This code is much cleaner because we don't use raw strings anymore and we've made use of OOP to create a cache objects that has a very pleasant API. Here are the benefits of this implementation:
 1. Since we have a class which encapsulates our cache, all you need to do to know what this cache is and what you do can do with is read the class definition. 
 2. To find out who's using our cache, we can use our IDE to easily find all instances of this cache object.
