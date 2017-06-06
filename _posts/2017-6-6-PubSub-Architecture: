@@ -9,4 +9,7 @@ So, how do we implement someftware when we're faced with such a complex system? 
 1. Events should be handled asynchronously. For example, we don't want to make the user wait while we send an email.  
 2. Some events are dealt with immediately. Some events trigger actions in the future, like an scheduled event.
 3. Consequences of events should be configurable, configurable by non-developers. The manager wants to change things up pretty quickly, so even if he can't do it, I should be able to do it within a day!!   
-4. We want this software to be 
+4. We want to code clean code. That means automated tests and readable code that just works.
+
+PubSub to the Rescue
+
