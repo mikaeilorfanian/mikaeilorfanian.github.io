@@ -15,20 +15,21 @@ Our educational [mobile application](https://play.google.com/store/apps/details?
 Phew..., this feature has turned out to be more complicated than we had orginally thought. Each time a user goes online, we hit our main db at least a dozen times. Our server would crash with a couple thousand users. And, we haven't even considered how other features of the app use our database.  
 
 ## Caching to the Rescue
-When problems such as this one show up, the usual fix is to use a cache. The idea of caching is used everywhere in the world(digital and physical). When I go shopping, I keep my debit card in my pocket. This way, I don't have to reach into my backpack and search for it when I need it. The same idea is by your personal computer's CPU and Operating System to speed things up. We can use this simple idea to save our application.  
+Problems of this kind are usually solved by using a cache. The idea of caching is used everywhere in the world(digital and physical). When I go shopping, I keep my debit card in my pocket. This way, I don't have to reach into my backpack and search for it when I need it. The same idea is used by your personal computer's CPU and Operating System to speed things up. To save our application, we too can use this simple idea.  
 ### Enter Redis
 Redis is an in-memory key-value database which is much faster than relational databases.  
-We will cache(save) users' status in a Redis collection. This collection will be a set of online users' IDs(A Redis set is very similar to a Python `set`).
-Now, when you open our app
+We will cache - or save - users' status in a Redis collection. This collection will be a set of online users' IDs(A Redis set is very similar to a Python `set`).
+Now, when you open our mobile app
 - We put your status into Redis
-- We ask Redis for a list of online users 
+- We ask Redis for a list of other online users 
 - Only if Redis doesn't have this list, we make a call to the main db
-- But, most of the time, the calls to the main db won't be necessary because Redis will have what we need.  
+- But, most of the time, the call to the main db won't be necessary because Redis will have what we need.  
 The idea behind this strategy is exactly the same idea that I use to keep my most frequently used cards right in my pocket.  
 
 ### Not So Fast: A Few Things to Consider
+One reason why Redis or any other in-memory database is so much faster than relational databases is that Redis keeps data in memory. The other reason is that Redis has no idea about the structure of your data or how different pieces of data are related to each other. This lack of structure is liberating, but it also has some consequences.  
 When caching anything, you need to think carefully about the follwing questions:  
-1. What Redis data structure will hold your data?
+1. What data structure - in our case, what Redis data structure - will hold your data?
 2. When do you update your cached data?
 3. When do you expire your cached data?
 4. What other parts of your code will use this data?
