@@ -6,8 +6,7 @@ published: true
 
 Hello and welcome!
 
-At XXX, we work on turning ideas into successful companies. In the past 6 years, we've created a dozen successful companies in different industries like Education, Dev Ops, and eCommerce.  
-Due to the nature of our business, we always have projects in every step of software development: planning, prototyping, MVP testing, scaling, and maturing. This allows us - the deveopers - to work on solving a wide variety of problems.  Collectively, we have spent more than 100 years makking software, and we share that knowledge through internal employee development programs.  
+At XXX, we work on turning ideas into successful companies. Due to the nature of our business, we have projects in every step of software development: planning, prototyping, MVP testing, scaling, and maturing. This allows us - the deveopers - to work on a wide variety of problems.  Collectively, we've spent more than 100 years makking software which we share with our co-workers through internal employee development programs.  
 This blog is actually an extension of one of those programs. Hopefully, it'll be as useful it is for you as it is for us.  
 Our posts will cover backend and frontend technolgoies and stacks. We'll discuss issues ranging from architectural design to software design patterns that address specific problems and issues.  
 Please let us know what you think. We'd like to learn from your feedback and make this blog better.  
