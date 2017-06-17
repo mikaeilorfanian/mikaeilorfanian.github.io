@@ -71,19 +71,15 @@ The above code has a few problems:
 Now, let's see how we get a list of online users to show our user:  
 ```python
 def get_online_users():
-    '''
-    returns list of oneline users' IDs which 
-    will be used for showing list of online users to a user
-    '''
     online_users_ids = cache.get('online_users')
     if not online_users_ids:
-        
         online_users_ids = User.objects.filter(status='online').values_list('id', flat=True)
         cache.set('online_users' online_users_ids)
     
     return online_users_ids
 ```
-In this function, we check whether the list of online users is in Redis. This check is necessary because key-value pairs in Redis have an expiration date(also called `ttl` or `time-to-live`). This function is housed in a module different than the previous two functions, but it's using the same hardcoded key to access cached data. And, `get_online_users` is where our data is cached, which is weird because the function name starts with "get" not "set".  
+*Note: *In this function, we check whether the list of online users is in Redis. This check is necessary because key-value pairs in Redis have an expiration date(also called `ttl` or `time-to-live`).  
+The above code has the same issues as the previous two. For example, this function lives in a module different than the previous two functions. But, it's using the same hardcoded key to access cached data. Also, `get_online_users` is where we set the cache(or where data is cached). This is weird because the function name starts with "get", not "set".  
 ## Second Implementation
 We can solve the above issues by creating a model class(similar to Django model classes) for our cached data. This object would encapsulate all the different ways we access and modify the cached data:
 ```python
@@ -109,11 +105,8 @@ Here's how this implementation is better than the previous one:
 2. To find out what's using or modifying our cache, we can simply use our IDE to find all instances of `OnlineUsersCacheManager`.
 3. Since we have a class encapsulating our cache, we can simply read its definition and learn about what it does and what you can do with it.  
 
-## Is This Refactoring Really Necessary?
-Of course! If we spend some more time on our OOP design, we'd eventually end up with something similar to Django's ORM or SQLAlchemy. 
-
-## Additional Notes
-- Redis can do much more than we've discusses here. It's well worth it to get acquainted with it.  
+## Summary
+- Redis is a powerful tool. It's well worth it to get acquainted with it.  
 - OOP is a software development paradigm that can help you clean up your code. Languages like Java have given OOP a bad rep, but remember that everything in Python is an object.  
 - Try to break down your features into steps and those steps into db hits. Even if you decide  not to optimize, you'll have a feeling about how different parts of your app use your db. One day, when you are foced to optimize, you'll know where to start.
 
