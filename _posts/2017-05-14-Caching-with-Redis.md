@@ -46,9 +46,9 @@ We know what triggers the first two changes: user opens or closes our applicatio
 You can now see why it's hard to keep your cached data up-to-date. There are ways to deal with this complexity, but as the "first implementation" below shows, there are also ways to make the situation worse.  
 
 ## First Implementation
-Note 1: read [this tutorial](https://realpython.com/blog/python/caching-in-django-with-redis/) to learn about how you can install Redis and use it with Django.  
-Note 2: the purpose of the pseudo code below is to illustrate relevant concepts. Missing functions, objects, and modules are irrelevant to this discussion.  
-Note 3: we won't discuss the caching of ratings and user bio. But, everything we learn from now on applies to caching any kind of data.  
+_Note 1:_ read [this tutorial](https://realpython.com/blog/python/caching-in-django-with-redis/) to learn about how you can install Redis and use it with Django.  
+_Note 2:_ the purpose of the pseudo code below is to illustrate relevant concepts. Missing functions, objects, and modules are irrelevant to this discussion.  
+_Note 3:_ we won't discuss the caching of ratings and user bio. But, everything we learn from now on applies to caching any kind of data.  
 In this first implementation, we'll see how we use the cache when a user opens and closes our mobile app:  
 ```python
 def login_handler(request):
@@ -65,9 +65,9 @@ def logout_handler(user):
 ```
 ### Analysis
 The above code has a few problems:  
-1. We're using strings as keys to fetch data from Redis. If the key changes, we'd have to make changes everywhere the cache is used. All the `set`, `get`, and `delete` operations will have to be edited.
-2. Since we're using strings, it's hard to find where this cache is being used because IDEs won't be able to help us with that.
-3. After reading the above code, it's not clear what's modifying our cached data. What is setting it? What is updating it? What if there's a bug and for some reason our cache is not up-to-date? How would you go about finding what's causing that bug?  
+- We're using strings as keys to fetch data from Redis. If the key changes, we'd have to make changes everywhere the cache is used. All the `set`, `get`, and `delete` operations will have to be edited.
+- Since we're using strings, it's hard to find where this cache is being used because IDEs won't be able to help us with that.
+- After reading the above code, it's not clear what's modifying our cached data. What is setting it? What is updating it? What if there's a bug and for some reason our cache is not up-to-date? How would you go about finding what's causing that bug?  
 Now, let's see how we get a list of online users to show our user:  
 ```python
 def get_online_users():
@@ -78,7 +78,7 @@ def get_online_users():
     
     return online_users_ids
 ```
-*Note:* In this function, we check whether the list of online users is in Redis. This check is necessary because key-value pairs in Redis have an expiration date(also called `ttl` or `time-to-live`).  
+_Note:_ In this function, we check whether the list of online users is in Redis. This check is necessary because key-value pairs in Redis have an expiration date(also called `ttl` or `time-to-live`).  
 The above code has the same issues as the previous two. For example, this function lives in a module different than the previous two functions. But, it's using the same hardcoded key to access cached data. Also, `get_online_users` is where we set the cache(or where data is cached). This is weird because the function name starts with "get", not "set".  
 ## Second Implementation
 We can solve the above issues by creating a model class(similar to Django model classes) for our cached data. This object would encapsulate all the different ways we access and modify the cached data:
@@ -101,9 +101,9 @@ class OnlineUsersCacheManager:
 ```
 ### Analysis
 Here's how this implementation is better than the previous one:
-1. We don't have harcoded strings trashing our code.
-2. To find out what's using or modifying our cache, we can simply use our IDE to find all instances of `OnlineUsersCacheManager`.
-3. Since we have a class encapsulating our cache, we can simply read its definition and learn about what it does and what you can do with it.  
+- We don't have harcoded strings trashing our code.
+- To find out what's using or modifying our cache, we can simply use our IDE to find all instances of `OnlineUsersCacheManager`.
+- Since we have a class encapsulating our cache, we can simply read its definition and learn about what it does and what you can do with it.  
 
 ## Summary
 - Redis is a powerful tool. It's well worth it to get acquainted with it.  
