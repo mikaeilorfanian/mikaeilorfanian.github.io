@@ -67,7 +67,7 @@ def logout_handler(user):
 The above code has a few problems:  
 - We're using strings as keys to fetch data from Redis. If the key changes, we'd have to make changes everywhere the cache is used. All the `set`, `get`, and `delete` operations will have to be edited.
 - Since we're using strings, it's hard to find where this cache is being used because IDEs won't be able to help us with that.
-- After reading the above code, it's not clear what's modifying our cached data. What is setting it? What is updating it? What if there's a bug and for some reason our cache is not up-to-date? How would you go about finding what's causing that bug?  
+- After reading the above code, it's not clear what's modifying our cached data. What is setting it? What is updating it? What if there's a bug and for some reason our cache is not up-to-date? How would you go about finding what's causing that bug?   
 Now, let's see how we get a list of online users to show our user:  
 ```python
 def get_online_users():
