@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Caching with Redis The Clean Way'
+title: 'Save Your Database by Caching with Redis'
 published: true
 ---
 In this post, we'd like to discuss how we've used Redis to make an infinite improvement in our Django application's performance. By "infinite", I mean the difference between an application that crashes under heavy load and one that doesn't.
