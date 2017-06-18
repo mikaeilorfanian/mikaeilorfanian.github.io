@@ -38,16 +38,17 @@ The issue of having accurate data in your cache is by far the most important and
 To make sure we have accurate data in Redis, we have to identify sources of discrepancy. There's discrepancy in cached data when that data doesn't accurately reflect what you care about. In our case, discrepancy can be caused when
 - user goes online or offline --> we fail to show others that you're online or offline
 - user changes their bio --> we show outdated bio to others
-- user's rating changes --> we show inaccurate ratings
-We know what triggers the first two changes: user opens or closes our application and user updates his/her bio using a form. User's rating is more complicated because it can change when
+- user's rating changes --> we show inaccurate ratings  
+We know what triggers the first two changes: user opens or closes our application or user updates his/her bio using a form.  
+User's rating is more complicated because it can change when
 - another user rates this user
 - a previous rating changes or is removed
-- our rating algorithm changes
+- our rating algorithm changes  
 You can now see why it's hard to keep your cached data up-to-date. There are ways to deal with this complexity, but as the "first implementation" below shows, there are also ways to make the situation worse.  
 
 ## First Implementation
 _Note 1:_ read [this tutorial](https://realpython.com/blog/python/caching-in-django-with-redis/) to learn about how you can install Redis and use it with Django.  
-_Note 2:_ the purpose of the pseudo code below is to illustrate relevant concepts. Missing functions, objects, and modules are irrelevant to this discussion.  
+_Note 2:_ the purpose of the pseudo code below is to illustrate relevant concepts. Missing functions, objects, and modules are irrelevant to our discussion.  
 _Note 3:_ we won't discuss the caching of ratings and user bio. But, everything we learn from now on applies to caching any kind of data.  
 In this first implementation, we'll see how we use the cache when a user opens and closes our mobile app:  
 ```python
@@ -62,14 +63,9 @@ def logout_handler(user):
     do_stuff()
     cache.set_remove('online_users', user.id) #remove user's ID from set of online users
     do_other_stuff()
-```
-### Analysis
-The above code has a few problems:  
-- We're using strings as keys to fetch data from Redis. If the key changes, we'd have to make changes everywhere the cache is used. All the `set`, `get`, and `delete` operations will have to be edited.
-- Since we're using strings, it's hard to find where this cache is being used because IDEs won't be able to help us with that.
-- After reading the above code, it's not clear what's modifying our cached data. What is setting it? What is updating it? What if there's a bug and for some reason our cache is not up-to-date? How would you go about finding what's causing that bug?   
-Now, let's see how we get a list of online users to show our user:  
-```python
+    
+
+# in a different module
 def get_online_users():
     online_users_ids = cache.get('online_users')
     if not online_users_ids:
@@ -79,7 +75,12 @@ def get_online_users():
     return online_users_ids
 ```
 _Note:_ In this function, we check whether the list of online users is in Redis. This check is necessary because key-value pairs in Redis have an expiration date(also called `ttl` or `time-to-live`).  
-The above code has the same issues as the previous two. For example, this function lives in a module different than the previous two functions. But, it's using the same hardcoded key to access cached data. Also, `get_online_users` is where we set the cache(or where data is cached). This is weird because the function name starts with "get", not "set".  
+### Analysis
+The above code has a few problems:  
+- We're using hardcoded strings as keys to fetch data from Redis. If the key changes, we'd have to make changes everywhere the cache is used. All the `set`, `get`, and `delete` operations will have to be edited.
+- Since we're using strings, it's hard to find where this cache is being used because IDEs won't be able to help us with that.
+- After reading the above code, it's not clear what's modifying our cached data. What is setting it? What is updating it? What if there's a bug and for some reason our cache is not up-to-date? How would you go about finding what's causing that bug?   
+- `get_online_users` is where we set the cache(or where data is cached). This is weird because the function name starts with "get", not "set". 
 ## Second Implementation
 We can solve the above issues by creating a model class(similar to Django model classes) for our cached data. This object would encapsulate all the different ways we access and modify the cached data:
 ```python
