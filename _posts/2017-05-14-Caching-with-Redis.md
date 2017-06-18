@@ -44,6 +44,7 @@ User's rating is more complicated because it can change when
 - another user rates this user
 - a previous rating changes or is removed
 - our rating algorithm changes  
+
 You can now see why it's hard to keep your cached data up-to-date. There are ways to deal with this complexity, but as the "first implementation" below shows, there are also ways to make the situation worse.  
 
 ## First Implementation
