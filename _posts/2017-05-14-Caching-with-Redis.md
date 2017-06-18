@@ -46,7 +46,7 @@ User's rating is more complicated because it can change when
 - our rating algorithm changes  
 
 
-You can now see why it's hard to keep your cached data up-to-date. There are ways to deal with this complexity, but as the "first implementation" below shows, there are also ways to make the situation worse.  
+It's become obvious that it's hard to keep our cached data up-to-date. There are ways to deal with this complexity, but as the "First Implementation" below shows, there are also ways to make the situation worse.  
 
 ## First Implementation
 _Note 1:_ read [this tutorial](https://realpython.com/blog/python/caching-in-django-with-redis/) to learn about how you can install Redis and use it with Django.  
@@ -113,4 +113,5 @@ Here's how this implementation is better than the previous one:
 - OOP is a software development paradigm that can help you clean up your code. Languages like Java have given OOP a bad rep, but remember that everything in Python is an object.  
 - Try to break down your features into steps and those steps into db hits. Even if you decide  not to optimize, you'll have a feeling about how different parts of your app use your db. One day, when you are foced to optimize, you'll know where to start.
 
-If you'd like to be notified when we publish the next article, sign up using [this form]().
+
+If you'd like to be notified when we publish the next article, fill out [this form(redirects to a different domain)]().
