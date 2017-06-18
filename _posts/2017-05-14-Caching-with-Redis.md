@@ -111,6 +111,7 @@ Here's how this implementation is better than the previous one:
 - Since we have a class encapsulating our cache, we can simply read its definition and learn about what it does and what you can do with it.  
 
 
+
 ## Summary
 - Redis is a powerful tool. It's well worth it to get acquainted with it.  
 - OOP is a software development paradigm that can help you clean up your code. Languages like Java have given OOP a bad rep, but remember that everything in Python is an object.  
