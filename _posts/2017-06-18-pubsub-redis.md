@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A Walk Through Pubsub Architecture
+title: Simplify Your Application by Using the PubSub Pattern: Part 1, In-depth Intro to PubSub
 published: true
 ---
 In this article, we will 
