@@ -82,7 +82,9 @@ The above code has a few problems:
 - We're using hardcoded strings as keys to fetch data from Redis. If the key changes, we'd have to make changes everywhere the cache is used. All the `set`, `get`, and `delete` operations will have to be edited.
 - Since we're using strings, it's hard to find where this cache is being used because IDEs won't be able to help us with that.
 - After reading the above code, it's not clear what's modifying our cached data. What is setting it? What is updating it? What if there's a bug and for some reason our cache is not up-to-date? How would you go about finding what's causing that bug?   
-- `get_online_users` is where we set the cache(or where data is cached). This is weird because the function name starts with "get", not "set". 
+- `get_online_users` is where we set the cache(or where data is cached). This is weird because the function name starts with "get", not "set".  
+
+
 ## Second Implementation
 We can solve the above issues by creating a model class(similar to Django model classes) for our cached data. This object would encapsulate all the different ways we access and modify the cached data:
 ```python
@@ -107,6 +109,7 @@ Here's how this implementation is better than the previous one:
 - We don't have harcoded strings trashing our code.
 - To find out what's using or modifying our cache, we can simply use our IDE to find all instances of `OnlineUsersCacheManager`.
 - Since we have a class encapsulating our cache, we can simply read its definition and learn about what it does and what you can do with it.  
+
 
 ## Summary
 - Redis is a powerful tool. It's well worth it to get acquainted with it.  
