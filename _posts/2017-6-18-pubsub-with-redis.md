@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Simplify Your App by Using the PubSub Pattern: Part 1, Intro to PubSub Using Python and Redis
+title: Simplify Your App by Using the PubSub Pattern: Part 1 Intro to PubSub Using Python and Redis
 published: true
 ---
 _note 1_ Due to the complexity of the topic of PubSub and its implementation, this tutorial will be a multi-part series of articles.  
