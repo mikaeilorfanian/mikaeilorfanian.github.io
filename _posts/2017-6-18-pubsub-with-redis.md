@@ -21,7 +21,7 @@ Let's say we want to make a web application with the following requirements:
 
 
 An _event_(left side of the arrow) triggers some _action_(right side of the arrow) and sometimes an `action` triggers more `event`s.  
-In addition,: 
+In addition, 
 - Some `action`s need to be handled asynchronously. For example, we don't want to make a user wait while we send an email.  
 - Some `action`s need to be handled immediately and some are scheduled to happen in future.
 - Some aspects of the behavior of the system should be configurable by non-developers. 
