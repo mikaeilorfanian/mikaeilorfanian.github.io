@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Simplify Your Application by Using the PubSub Pattern: Part 1, In-depth Intro to PubSub
+title: Simplify Your App by Using the PubSub Pattern: Part 1, Intro to PubSub
 published: true
 ---
 In this article, we will 
@@ -14,13 +14,15 @@ Let's say we have a website with the following requirements:
 - user is inactive for X days --> notify user
 - user deletes his/her account with us --> notify customer support
 
-You can think of this application as a river of events: user signs up, user does something, etc.. These *events* trigger some *action* and sometimes an could trigger other events.  
-In addition, we want: 
-	• Some events to be handled asynchronously. For example, we don't want to make the user wait while we send an email.  
-	• Some events to be dealt with immediately, others to be scheduled for future.
-	• Some aspects of the behavior of the system to be configurable by non-developers. 
-	• To change things quickly and experiment rapidly with new events and actions.
-	• To write clean code. That means automated tests for readable code that does what it's supposed to.
+
+These *events* trigger some *action* and sometimes an could trigger other events.  
+In addition, we would like: 
+- Some events to be handled asynchronously. For example, we don't want to make a user wait while we send an email.  
+- Some events to be handled immediately and some to be scheduled for future.
+- Some aspects of the behavior of the system to be configurable by non-developers. 
+- To experiment with new events and actions without investing much time and money.
+- To write clean code. That means automated tests for readable code that does what it's supposed to.  
+
 
 ## Intro to PubSub
 Pubsub is an architecture used for designing complex systems characterized by requirements similar to the ones above. If you adhere to the design guidelines of PubSub, you'd end up with software that is much easier to reason about, maintain, and scale.  
@@ -31,14 +33,15 @@ The PubSub architecture is made of 3 components:
 The above 3 components effectively divide our application into 3 self-contained modules or components. In the Python world, we'd be able to implement this design multiple ways.  
 ## Implementation
 ### 1. Three Modules Within One Application
-Given that we have a web application, using this implementation would mean that the publisher, hub, and subscriber are housed within the same application. Those who are familiar with Django signals have already used this implementation of PubSub. For example, if you want to trigger some action each time a row in your database is modified, then you can subscribe to signals - PubSub `topic`s are called `signal`s in Django - like `pre_save` or `post_save`. 
+Given that we have a web application, using this implementation would mean that the publisher, hub, and subscriber are housed within the same application. Those who are familiar with Django signals have already used this implementation of PubSub. For example, if you want to trigger some action each time a row in your database is modified, then you can subscribe to signals - PubSub `topic`s are called `signal`s in Django - like `pre_save` or `post_save`.  
+Here's how a we'd program a publisher:
 ```python
 # publish.py
 from . import router # implemention comes later
 
 
-  class NewUserCreated:
-    topics = {'new_user_created'} #1
+class NewUserCreated:
+    topics = {'new_user_created'} #1 numbered explanations below
 
     @classmethod
     def publish(cls, user_id): 
