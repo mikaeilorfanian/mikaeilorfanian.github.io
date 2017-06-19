@@ -11,6 +11,7 @@ In this article, we will
 - solve a common challenge using pub-sub  
 
 
+
 ## The Problem
 Let's say we want to make a web application with the following requirements:
 - new user signs up --> send welcome email
