@@ -4,7 +4,7 @@ title: Simplify Your App by Using the PubSub Pattern, Part 1 Intro to PubSub Usi
 published: true
 ---
 _note 1_ Due to the complexity of the topic of PubSub and its implementation, this tutorial will be a multi-part series of articles.  
-_note 2_ We'll use technologies like Python and Redis, but you everything discussed here is actually technology agnostic.   
+_note 2_ We'll use technologies like Python and Redis, but everything discussed here is actually technology agnostic.   
 In this article, we will 
 - learn about the publ-sub architecture 
 - discuss why and when it is useful
