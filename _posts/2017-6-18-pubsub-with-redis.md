@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Simplify Your App by Using the PubSub Pattern: Part 1, Intro to PubSub
+title: Simplify Your App by Using the PubSub Pattern Part 1, Intro to PubSub
 published: true
 ---
 In this article, we will 
