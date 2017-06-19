@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Why We Keep Choosing Django
+title: "Why We Keep Choosing Django"
 published: true
 ---
 There are dozens of great web development frameworks out there, but in most cases we end up using Django. Considering that we have half a dozen projects in active developement, we can't afford to pick the wrong tools. So, why is it that Django beats the competition?  
@@ -27,4 +27,4 @@ Many regular people(including me) choose to become a developer because it's easy
 
 
 ### We Save Money 
-Since we save time, the business saves money. Without Django, many budgets would become unacceptable and many MVPs would be much less interesting. Thanks to Django, we do more with less resources.  
+Since we save time, the business saves money. Without Django, many budgets would become unacceptable and many MVPs would be much less interesting. Thanks to Django, we do more with less resources.
