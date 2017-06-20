@@ -20,14 +20,14 @@ Let's say we want to make a web application with the following requirements:
 - user deletes his/her account with us --> notify customer support  
 
 
-An _event_(left side of the arrow) triggers some _action_(right side of the arrow) and sometimes an `action` triggers more `event`s.  
+An `event`(left side of the arrow) triggers some `action`(right side of the arrow) and sometimes an `action` triggers more `event`s.  
 In addition, 
 - Some `action`s need to be handled asynchronously. For example, we don't want to make a user wait while we send an email.  
-- Some `action`s need to be handled immediately and some are scheduled to happen in future.
+- Some `action`s are to be handled immediately and some are scheduled to happen in future.
 - Some aspects of the behavior of the system should be configurable by non-developers. 
 - Business wants to experiment with new events and actions without investing much time and money.
 - Scaling the application should not require a total rewrite or redesign of the application.
-- We - the devs- want to write high quality code. We want to have automated tests and readable code that just works!  
+- We - the devs - want to write high quality code. We want to have automated tests and readable code that just works!  
 
 
 ## Intro to PubSub
@@ -35,16 +35,15 @@ Pubsub is an architecture used for designing complex systems characterized by re
 The PubSub architecture is made up of 3 components:
 _Publishers_ send or trigger events. They don't care where those events go and what happens to them.
 _The Hub_ (also called a broker) routes `event`s; it tells events where to go.
-_Subscribers_ act on `event`s; they take `action`s.  They don't care where the `event`s come from. A subscriber tells the broker that it's interested in one or more `topic`s. When an event with that `topic` occurs, the broker notifies the subscriber.  
-_Note:_ a `topic` is like a tag for an `event`. An `event` can have more than one `topic`. Each subscriber can subscribe to be notified about more than one `topic`.  
-The above 3 components effectively divide our application into 3 self-contained modules or components. There are multiple ways of implementing the PubSub architecture. In this article, we'll go through one implementation and discuss its strengths and weaknesses.  
+_Subscribers_ act on `event`s; they take `action`s.  They don't care where the `event`s come from. A subscriber tells the hub that it's interested in one or more `topic`s. When an event with that `topic` occurs, the broker notifies the subscriber.  
+_Note:_ a `topic` is like a tag for an `event`. An `event` can have more than one `topic`. Each subscriber can subscribe to more than one `topic`.  
+The above 3 components effectively divide our application into 3 self-contained modules or components. There are multiple ways of implementing the PubSub architecture. In this article, we'll go through one implementation and discuss its strengths and weaknesses. In the next part of this series, we'll discuss a more scalable implementation.  
 ## All-Components-Within-One-Application Implementation
 Our web application, publisher, hub, and subscriber will be housed within the same application. Those who are familiar with Django signals have already used this implementation of PubSub. For example, if you want to trigger some action each time a row in your database is modified, then you can subscribe to signals - PubSub `topic`s are called `signal`s in Django - like `pre_save` or `post_save`.  
-Let's start with an `event` publisher:  
+Let's start with an `event` publisher. The `NewUserCreated` object is an `event` publisher that hides the details of how we send event details to the `hub`.    
 ```python
 # publish.py
 from . import router # implemention comes later
-
 
 class NewUserCreated: # event class
     topics = {'new_user_created'} # event can have multiple topics
@@ -54,28 +53,26 @@ class NewUserCreated: # event class
         hub(cls.topics, user_id)
 
 
-# usage in another module
+# how events are triggered in another module
 from publish import NewUserCreated
-
 
 def signup_handler(username, email, password):
     user = make_new_user(username, email, password)
     NewUserCreated.publish(user.id)
     do_some_other_things()
 ```
-When a new user signs up, we send the `new_user_created` topic and event details(`user_id`) to the `hub`. The `NewUserCreated` object is an `event` publisher that hides the details of how we send event details and its `topic` to the `hub`.  
+When a new user signs up, we send the `new_user_created` topic and event details(`user_id`) to the `hub`.   
 The `hub` is an instance of the `PubSubHub` class:  
 ```python
 # router.py
 from collections import defaultdict
-
 
 class PubSubHub:
 
     def __init__(self):
         self.topic_subscriber_mapper = defaultdict(set) #1
 
-    def subscribe(self, *topics): # a decorator that takes parameters
+    def subscribe(self, *topics): # a decorator that takes topics as parameters
         def real_subscribe(subscriber_function): #2
             for topic in topics:
                 self.topic_subscriber_mapper[topic].add(subscriber_function) #3
@@ -91,8 +88,8 @@ class PubSubHub:
 ```
 #### Explanation
 _#1_ The `hub` has a mapping of `topic`s to `subscriber`s. A `subscriber` can register interest in one or more `topic`s using the `subscribe` method of the `PubSubHub` class.  
-_#2_ The `subscribe` method is a decorator that takes one or more `topic`s as its argument. You will see how this decorator is used later on.  
-_#3_ This line creates a map between a `topic` and an interested `subscriber`.  
+_#2_ The `subscribe` method is a decorator that takes one or more `topic`s as its argument. In Python, a decorator takes a function, does something to it, and returns it. In our case, `subscribe` takes one or more `topic`s and the function that is interested in those `topic`s and populates the topic->subscriber maps in the `hub`. You will see how this decorator is used later on.  
+_#3_ This line creates a mapping from a `topic` to an interested `subscriber`.  
 _#4_ This special "dunder" method makes an instance of the `PubSubHub` class callabe. That's why we can send events to the hub using `hub(cls.topics, auction_id)` defined as part of the `NewUserCreated` class implemented above.  
 _#5_ We get the `topic`s of an event from the event publisher meaning that an event can have more than one `topic`. This loop ensures that we call subscribers interested in each `topic`. As you will soon see, each `subscriber` can register interest in more than one `topic`.  
 _#6_ We call the `subscriber` with the parameters we received from the `event` publisher.  
