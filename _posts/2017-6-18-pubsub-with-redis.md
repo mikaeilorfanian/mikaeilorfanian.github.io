@@ -132,7 +132,8 @@ To scale this implementation, we'd have to scale the whole application(add more 
 
 ## How to Fix These Issues
 Most of the weaknesses of the first implementation if we use a separate processes for each component. However, this would require us to add things like task queues and buffers to our architecture. In the next part of this series, we'll use tools like Redis, RQ, rqworker, and rqscheduler to do just that.  
-If you'd like to be notified when we publish next part in the series, fill out [this form(redirects to our newsletter signup page)]().
+If you'd like to be notified when we publish next part in the series, fill out [this form(redirects to our newsletter signup page)]().  
+
 ----
 ****
-> _Written and edited by Mikaeil Orfanian_
+> _Article by Mikaeil Orfanian_
