@@ -52,7 +52,6 @@ class NewUserCreated: # event class
     def publish(cls, user_id): 
         hub(cls.topics, user_id)
 
-
 # how events are triggered in another module
 from publish import NewUserCreated
 
@@ -116,11 +115,15 @@ The picture below shows how these 3 compoenents interact with each other:
 ![pubsub first implementation](/images/pubsub1.png "PubSub First Implementation")
 
 ## Analysis
-This implementation doesn't address the async and scalability requirements. We could resolve this issue by using an async web framework, but the most popular Python web frameworks like Django and Flask don't have async built-in. So, we'll have to solve this issue by using separate worker processes that will do the long-running tasks. This solution would require us to set up a task queue which we will do using RQ in the next article.  
-To scale this implementation, we'd have to scale the whole application(add more servers running the same application). This means that we'd get more publishers, hubs, and subscribers in addition to the main web application. This is a waste of resources because it's rarely the case that we'd need to scale those 4 components at once.  
+This implementation doesn't address the async and scalability requirements.  
+### Async
+We want asynchrony because some tasks like sending an email take a long time to finish and users don't like waiting. An async web framework might solve this problem only if the long-running tasks are IO-bound. Plus, the most popular Python web frameworks like Django and Flask don't have async built-in. These framworks have features that we really like.  
+Even if we're okay with waiting for long-running tasks to finish, there's still a big reason why we want to have asynchrony. 
+Did you notice that if anything in the above implementation breaks, every component of the PubSub architecture is affected? For example, let's say we have 3 subscribers for the `new_user_created` topic. The `hub` tries to notify the first subscriber, but an exception is thrown. This means that none of the 3 subscribers get notified.  
+One way fixing this issue would be to catch exceptions. Since we have 3 major components and a wide range of subscribers, the number of exceptions we'd have to hanlde will be big. This can affect performance and reduce code quality. Plus, there's no guarantee that you've caught all exceptions unless you write really bad and dangerous code.  
+### Scalability
+To scale this implementation, we'd have to scale the whole application(add more servers running the same application). This means that we'd get more publishers, hubs, and subscribers in addition to the main web application. This is a waste of resources because it's rarely the case that we'd need to scale those 4 components at once. And, sometimes scaling everything can be dangerous. For example, if our subscribers have too many events to process, then adding more publishers would make matters worse.    
 
-### 2. 
-Async is a very interesting topic. In short, it'll all about not wasting time. In our case, we don't want to waste our users' time. They click a button and see an "email sent" message. They don't want to wait for us while we send emails in the background, deal with errors, log stuff, trigger events and handle those events, etc.
-A great tool that we really like is Redis. Redis + RQ + rqworker + rqscheduler can become the backbone of such an async system. Publishers send events to the hub which(using rqworker) puts them on a queue in Redis. rqscheduler handles the scheduling of events. Subscribers are also implemented using rqworker.
-
-Let's go through the code above this time using pictures that show how different components interact with each other in a pubsub architecture. 
+## How to Fix These Issues
+Most of the weaknesses of the first implementation can be addressed by using separate processes for each component. However, this would require us to add things like task queues and buffers to our architecture. We will implement the second implementation in the next part of this series with the help of tools like Redis, RQ, rqworker, and rqscheduler.  
+Stay tuned. If you'd like to be notified when we publish next part in this series, fill out [this form(redirects to our newsletter signup page)]().
