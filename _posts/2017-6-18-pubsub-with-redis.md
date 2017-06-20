@@ -72,7 +72,7 @@ class PubSubHub:
     def __init__(self):
         self.topic_subscriber_mapper = defaultdict(set) #1
 
-    def subscribe(self, *topics): # a decorator that takes topics as parameters
+    def subscribe_to(self, *topics): # a decorator that takes topics as parameters
         def real_subscribe(subscriber_function): #2
             for topic in topics:
                 self.topic_subscriber_mapper[topic].add(subscriber_function) #3
@@ -87,14 +87,34 @@ class PubSubHub:
                 subscriber(**kwargs) #6
 ```
 #### Explanation
-_#1_ The `hub` has a mapping of `topic`s to `subscriber`s. A `subscriber` can register interest in one or more `topic`s using the `subscribe` method of the `PubSubHub` class.  
-_#2_ The `subscribe` method is a decorator that takes one or more `topic`s as its argument. In Python, a decorator takes a function, does something to it, and returns it. In our case, `subscribe` takes one or more `topic`s and the function that is interested in those `topic`s and populates the topic->subscriber maps in the `hub`. You will see how this decorator is used later on.  
+_#1_ The `hub` has a mapping of `topic`s to `subscriber`s. A `subscriber` can register interest in one or more `topic`s using the `subscribe_to` method of the `PubSubHub` class.  
+_#2_ The `subscribe_to` method is a decorator that takes one or more `topic`s as its argument. In Python, a decorator takes a function, does something to it, and returns it. In our case, `subscribe_to` takes one or more `topic`s and the function that is interested in those `topic`s and populates the topic->subscriber maps in the `hub`. You will see how this decorator is used later on.  
 _#3_ This line creates a mapping from a `topic` to an interested `subscriber`.  
 _#4_ This special "dunder" method makes an instance of the `PubSubHub` class callabe. That's why we can send events to the hub using `hub(cls.topics, auction_id)` defined as part of the `NewUserCreated` class implemented above.  
-_#5_ We get the `topic`s of an event from the event publisher meaning that an event can have more than one `topic`. This loop ensures that we call subscribers interested in each `topic`. As you will soon see, each `subscriber` can register interest in more than one `topic`.  
-_#6_ We call the `subscriber` with the parameters we received from the `event` publisher.  
-#### Let's Picture This
-#### Analysis
+_#5_ We get the `topic`s of an event from the event publisher.An event can have more than one `topic`. This loop ensures that we call subscribers interested in each `topic`. As you will soon see, each `subscriber` can register interest in more than one `topic`.  
+_#6_ We call each subscriber with parameters we received from the `event` publisher.  
+Now, let's look at a subscriber:
+```python
+# subscribe.py
+import emailer
+
+from . import router
+
+@router.subscribe_to('new_user_created') #1
+def email_new_user(user_id):
+    user = get_user(user_id)
+    context = {
+        'subject': 'Welcome!',
+        'body': 'Hello{}! Thanks for signing up.'.format(user.first_name),
+    }
+    emailer.send(user.email, context)
+```
+_#1_ We're using the `subscribe_to` decorator on top of our `subscriber`. `subscribe_to` creates a mapping from the `new_user_created` topic to the `email_new_user` function.  
+_Note: _The code above needs doesn't run as is  because we haven't created a `router` object yet. Also, we need to trigger the decorators somehow. To see a full impolementation, go to [this repo].
+## Let's Picture This
+The picture below shows how these 3 compoenents interact with each other:  
+
+## Analysis
 This implementation doesn't address the async and scalability requirements. We could resolve this issue by using an async web framework, but the most popular Python web frameworks like Django and Flask don't have async built-in. So, we'll have to solve this issue by using separate worker processes that will do the long-running tasks. This solution would require us to set up a task queue which we will do using RQ in the next article.  
 To scale this implementation, we'd have to scale the whole application(add more servers running the same application). This means that we'd get more publishers, hubs, and subscribers in addition to the main web application. This is a waste of resources because it's rarely the case that we'd need to scale those 4 components at once.  
 
