@@ -42,7 +42,9 @@ _Note:_ a `topic` is like a tag for an `event`. An `event` can have one or more 
 The above 3 components effectively divide our application into 3 self-contained modules or components which allows for multiple implementations of the PubSub architecture.  
 First, we'll go through one implementation and discuss its strengths and weaknesses. In the next article, we'll go through another implementation that addresses the weaknesses of the first implementation.  
 ## All-Components-Within-One-Application Implementation
-We can implement our web application, publisher, hub, and subscriber within the same application. Those who are familiar with Django signals have already used this implementation of PubSub. For example, you can subscribe to signals - Django `signal`s are similar to PubSub `topic`s- like `pre_save` or `post_save` if you want to trigger some action each time a row in your database is modified.
+We can implement our web application, publisher, hub, and subscriber within the same application. Those who are familiar with Django signals have already used this implementation of PubSub. For example, you can subscribe to signals - Django `signal`s are similar to PubSub `topic`s- like `pre_save` or `post_save` if you want to trigger some action each time a row in your database is modified.  
+The picture below shows how these 3 compoenents interact with each other:  
+![pubsub first implementation](/images/pubsub1.png "PubSub First Implementation")  
 Let's start with an `event` publisher. The `NewUserCreated` object is an `event` publisher that hides the details of how we send event details to the `hub`.  
 ```python
 # publish.py
@@ -112,11 +114,7 @@ def email_new_user(user_id):
     emailer.send(user.email, context)
 ```
 _#1_ We're using the `subscribe_to` decorator on top of our `subscriber` function. `subscribe_to` creates a mapping from the `new_user_created` topic to the `email_new_user` function.  
-_Note_: The code above doesn't run as is because we haven't created a `router` object yet. Also, we need to trigger the decorators somehow. To see a full impolementation, go to [this repo].
-## Let's Picture This
-The picture below shows how these 3 compoenents interact with each other:  
-![pubsub first implementation](/images/pubsub1.png "PubSub First Implementation")
-
+_Note_: The code above doesn't run as is because we haven't created a `router` object yet. Also, we need to trigger the decorators somehow. To see a full impolementation, go to [this repo].  
 ## Analysis
 This implementation is simple and many frameworks are implemented this way. However, our requirements mention that some tasks need to ben run asyncronously and that scalability should not require a rewrite of the whole application.     
 ### Async
