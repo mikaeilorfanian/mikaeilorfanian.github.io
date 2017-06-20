@@ -131,7 +131,7 @@ One way of fixing this would be to catch the exceptions. Since we have 3 major c
 To scale this implementation, we'd have to scale the whole application(add more servers running the same application). As a result, we'd get more publishers, hubs, and subscribers in addition to the main web application. This is a waste of resources because it's rarely the case that we need to scale those 4 components at once. And, sometimes scaling everything can be dangerous. For example, if our subscribers have too many events to process, then adding more publishers would make matters worse.    
 
 ## How to Fix These Issues
-Most of the weaknesses of the first implementation if we use a separate processes for each component. However, this would require us to add things like task queues and buffers to our architecture. In the next part of this series, we'll use tools like Redis, RQ, rqworker, and rqscheduler to do just that.  
+We can fix the weaknesses of the first implementation by running each PubSub component in a separate application or process. However, this would require the introduction of task queues and buffers to our architecture. In the next part of this series, we'll use tools like Redis, RQ, rqworker, and rqscheduler to do just that.  
 If you'd like to be notified when we publish next part in the series, fill out [this form(redirects to our newsletter signup page)]().  
 
 > _Article by Mikaeil Orfanian_
