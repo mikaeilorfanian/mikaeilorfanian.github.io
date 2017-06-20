@@ -32,7 +32,7 @@ In addition,
 
 ## Intro to PubSub
 Pubsub is an architecture used for designing complex systems characterized by requirements similar to the ones above. If you adhere to the design guidelines of PubSub, you'd end up with software that is much easier to reason about, maintain, and scale.  
-The PubSub architecture is made up of 3 components:
+The PubSub architecture is made up of 3 components:  
 _Publishers_ send or trigger events. They don't care where those events go and what happens to them.
 _The Hub_ (also called a broker) routes `event`s; it tells events where to go.
 _Subscribers_ act on `event`s; they take `action`s.  They don't care where the `event`s come from. A subscriber tells the hub that it's interested in one or more `topic`s. When an event with that `topic` occurs, the broker notifies the subscriber.  
