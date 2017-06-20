@@ -35,4 +35,5 @@ Many regular people(including me) choose to become a developer because it's easy
 
 
 ### We Save Money 
-Since we save time, the business saves money. Without Django, many budgets would become unacceptable and many MVPs would be much less interesting. Thanks to Django, we do more with less resources.
+Since we save time, the business saves money. Without Django, many budgets would become unacceptable and many MVPs would be much less interesting. Thanks to Django, we do more with less resources.  
+If you'd like to be notified when we publish the next article, fill out [this form(redirects to a different domain)]().
