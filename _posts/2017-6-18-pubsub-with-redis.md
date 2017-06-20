@@ -42,8 +42,8 @@ _Note:_ a `topic` is like a tag for an `event`. An `event` can have one or more 
 The above 3 components effectively divide our application into 3 self-contained modules or components which allows for multiple implementations of the PubSub architecture.  
 First, we'll go through one implementation and discuss its strengths and weaknesses. In the next article, we'll go through another implementation that addresses the weaknesses of the first implementation.  
 ## All-Components-Within-One-Application Implementation
-Our web application, publisher, hub, and subscriber will be housed within the same application. Those who are familiar with Django signals have already used this implementation of PubSub. For example, if you want to trigger some action each time a row in your database is modified, then you can subscribe to signals - PubSub `topic`s are called `signal`s in Django - like `pre_save` or `post_save`.  
-Let's start with an `event` publisher. The `NewUserCreated` object is an `event` publisher that hides the details of how we send event details to the `hub`.    
+We can implement our web application, publisher, hub, and subscriber within the same application. Those who are familiar with Django signals have already used this implementation of PubSub. For example, if you want to trigger some action each time a row in your database is modified, then you can subscribe to signals - called Django `signal`s are similar to PubSub `topic`s- like `pre_save` or `post_save`.  
+Let's start with an `event` publisher. The `NewUserCreated` object is an `event` publisher that hides the details of how we send event details to the `hub`.  
 ```python
 # publish.py
 from . import router # implemention comes later
