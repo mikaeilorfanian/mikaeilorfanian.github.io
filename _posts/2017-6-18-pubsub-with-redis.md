@@ -109,10 +109,11 @@ def email_new_user(user_id):
     }
     emailer.send(user.email, context)
 ```
-_#1_ We're using the `subscribe_to` decorator on top of our `subscriber`. `subscribe_to` creates a mapping from the `new_user_created` topic to the `email_new_user` function.  
-_Note: _The code above needs doesn't run as is  because we haven't created a `router` object yet. Also, we need to trigger the decorators somehow. To see a full impolementation, go to [this repo].
+_#1_ We're using the `subscribe_to` decorator on top of our `subscriber` function. `subscribe_to` creates a mapping from the `new_user_created` topic to the `email_new_user` function.  
+_Note: _The code above doesn't run as is because we haven't created a `router` object yet. Also, we need to trigger the decorators somehow. To see a full impolementation, go to [this repo].
 ## Let's Picture This
 The picture below shows how these 3 compoenents interact with each other:  
+![pubsub first implementation](/images/pubsub1.png "PubSub First Implementation")
 
 ## Analysis
 This implementation doesn't address the async and scalability requirements. We could resolve this issue by using an async web framework, but the most popular Python web frameworks like Django and Flask don't have async built-in. So, we'll have to solve this issue by using separate worker processes that will do the long-running tasks. This solution would require us to set up a task queue which we will do using RQ in the next article.  
