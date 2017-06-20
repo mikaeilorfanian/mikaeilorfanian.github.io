@@ -132,6 +132,6 @@ To scale this implementation, we'd have to scale the whole application(add more 
 
 ## How to Fix These Issues
 We can fix the weaknesses of the first implementation by running each PubSub component in a separate application or process. However, this would require the introduction of task queues and buffers to our architecture. In the next part of this series, we'll use tools like Redis, RQ, rqworker, and rqscheduler to do just that.  
-If you'd like to be notified when we publish next part in the series, fill out [this form(redirects to our newsletter signup page)]().  
+If you'd like to be notified when we publish next article in the series, fill out [this form(redirects to our newsletter signup page)]().  
 
 > _Article by Mikaeil Orfanian_
