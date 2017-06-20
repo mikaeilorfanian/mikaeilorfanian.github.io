@@ -35,9 +35,12 @@ Pubsub is an architecture used for designing complex systems characterized by re
 The PubSub architecture is made up of 3 components:  
 - _Publishers_ send or trigger events. They don't care where those events go and what happens to them.  
 - _The Hub_ (also called a broker) routes `event`s; it tells events where to go.  
-- _Subscribers_ act on `event`s; they take `action`s.  They don't care where the `event`s come from. A subscriber tells the hub that it's interested in one or more `topic`s. When an event with that `topic` occurs, the broker notifies the subscriber.  
-_Note:_ a `topic` is like a tag for an `event`. An `event` can have more than one `topic`. Each subscriber can subscribe to more than one `topic`.  
-The above 3 components effectively divide our application into 3 self-contained modules or components. There are multiple ways of implementing the PubSub architecture. In this article, we'll go through one implementation and discuss its strengths and weaknesses. In the next part of this series, we'll discuss a more scalable implementation.  
+- _Subscribers_ act on `event`s; they take `action`s.  They don't care where `event`s come from. A subscriber tells the hub that it's interested in one or more `topic`s. When an event with that `topic` occurs, the broker notifies the subscriber.  
+
+
+_Note:_ a `topic` is like a tag for an `event`. An `event` can have one or more `topic`s. Also, a subscriber can subscribe to one or more `topic`s.  
+The above 3 components effectively divide our application into 3 self-contained modules or components which allows for multiple implementations of the PubSub architecture.  
+First, we'll go through one implementation and discuss its strengths and weaknesses. In the next article, we'll go through another implementation that addresses the weaknesses of the first implementation.  
 ## All-Components-Within-One-Application Implementation
 Our web application, publisher, hub, and subscriber will be housed within the same application. Those who are familiar with Django signals have already used this implementation of PubSub. For example, if you want to trigger some action each time a row in your database is modified, then you can subscribe to signals - PubSub `topic`s are called `signal`s in Django - like `pre_save` or `post_save`.  
 Let's start with an `event` publisher. The `NewUserCreated` object is an `event` publisher that hides the details of how we send event details to the `hub`.    
