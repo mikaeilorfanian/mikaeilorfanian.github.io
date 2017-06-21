@@ -3,25 +3,24 @@ layout: post
 title: "Why We Keep Choosing Django"
 published: true
 ---
-There are dozens of great web development frameworks out there, but in most cases we end up using Django. Considering that we have half a dozen projects in active developement, we can't afford to pick the wrong tools. So, why is it that Django beats the competition?  
+There are dozens of great web development frameworks, but in most cases we end up using Django. Considering that we have half a dozen projects in active developement, we can't afford to pick the wrong tools. So, why is it that Django beats the competition?  
 
 ## What's Unique About Django 
 First, let's look at what makes Django unique among the dozens and dozens of web development frameworks out there.  
 
 ### Learning Web Development with Django Is Easy 
-Python and django are easy to learn. Tens of high quality books are available for free online.  Since Python and Django have been around for a while, newcomers easily find a learning path that can take them from zero to hero within a few months. This is true for people who've never written a line of code and those who have experience with other languages and frameworks.  
-
+Python and Django are easy to learn. Tens of high quality books and courses are available online for free.  Since Python and Django have been around for a while, newcomers can pick a learning path that will take them from zero to hero within a few months.  
 ### Django's Documentation Is Second to None 
-When you Google Django-related questions, the official documentation is usually at the top of the results list. This is quite unique to Django. In fact, the documentation is so good that by actually reading it, a novice programmer can learn new things not only about Django but about web development best in general.  
+When you Google Django-related questions, the official documentation is usually at the top of the results list. This is quite unique to Django. In fact, the documentation is so good that by actually reading it, a novice programmer can learn new things not only about Django but about web development in general.  
 
 ### Django's Included Batteries Are Powerful and Flexible
-60-90% of what we do on a regular basis uses built-in Django tools: the admin panel, manage.py commands, Django ORM, email, and so on. In cases when we need something that Django doesn't offer, there's often a library that does what we want. Still, Django is almost always flexible enough that we can create our own custom solution if needed.  
+60-90% of what we do on a regular basis uses built-in Django tools: the admin panel, manage.py commands, Django ORM, email, and so on. When we need something that Django doesn't offer, there's often a library that does what we want. Still, Django is almost always flexible enough that we can create our own custom solution if needed.  
 
 ### Django and Python Communities Are Mature 
-Python and Django communities have been lead by great leaders for decades. The leadership has been strong, sensible, and fun and these qualities are the reason why there are so many self-organized Python and Django communities around the world. The communities produce a huge amount of high-quality learning materials and yet they are very welcoming to newcomers and beginners.   
+Python and Django communities have been lead by great people for decades. The leadership has been strong, sensible, and fun and these qualities are the reason why there are so many self-organized Python and Django communities around the world. The communities produce a huge amount of high-quality learning materials and yet they are very welcoming to newcomers and beginners.   
 
 ## The Real Benefits of Using Django 
-Now, I'll explain the effects of using Django in our projects:  
+We know what's great and uniuqe about Django. Now, let's see how using Django affects our day-to-day work:  
 
 ### We Save Time 
 We save hundreds of priceless hours in each single project. We save time because they don't have to reinvent the wheel because code that's not written doesn't need to be tested and maintained. Since we can release our products earlier, we can be more agile iterate more quickly which means we have a better chance of success.  
