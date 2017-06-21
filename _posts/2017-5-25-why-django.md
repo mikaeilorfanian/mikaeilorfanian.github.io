@@ -19,8 +19,7 @@ When you Google Django-related questions, the official documentation is usually 
 ### Django and Python Communities Are Mature 
 Python and Django communities have been lead by great people for decades. The leadership has been strong, sensible, and fun and these qualities are the reason why there are so many self-organized Python and Django communities around the world. The communities produce a huge amount of high-quality learning materials and yet they are very welcoming to newcomers and beginners.   
 
-## The Real Benefits of Using Django 
-We know what's great and uniuqe about Django. Now, let's see how using Django affects our day-to-day work:  
+Now that we know what's great about Django, let's see how it impacts us in concrete terms:  
 
 ### We Save Time 
 We save hundreds of priceless hours in each single project. We save time because they don't have to reinvent the wheel because code that's not written doesn't need to be tested and maintained. Since we can release our products earlier, we can be more agile iterate more quickly which means we have a better chance of success.  
