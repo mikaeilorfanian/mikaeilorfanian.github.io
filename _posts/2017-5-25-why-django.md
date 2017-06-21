@@ -35,5 +35,5 @@ Many choose to become a developer because it's easy to learn programming using P
 
 ### We Save Money 
 As we, the devs, save time the business saves money. Without Django, many budgets would have to be cut and many MVPs would be much less interesting. Thanks to Django, we do much more with less resources.  
-That's it. If you'd like to give Django a try, start with the [official tutorial](https://docs.djangoproject.com/en/1.11/intro/tutorial01/). Then, you can go through this excelent [free book](http://www.tangowithdjango.com/book17/) which is a bit outdated but is a great intro to the many different things you can do with Django.  
+That's it. If you'd like to give Django a try, start with the [official tutorial](https://docs.djangoproject.com/en/1.11/intro/tutorial01/). Then, you can go through this excellent [free book](http://www.tangowithdjango.com/book17/) which is a bit outdated but is a great intro to the many different things you can do with Django.  
 If you'd like to be notified when we publish the next article, fill out [this form(redirects to a different domain)]().
