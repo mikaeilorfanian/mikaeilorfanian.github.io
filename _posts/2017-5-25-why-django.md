@@ -22,16 +22,18 @@ Python and Django communities have been lead by great people for decades. The le
 Now that we know what's great about Django, let's see how it impacts us in concrete terms:  
 
 ### We Save Time 
-We save hundreds of priceless hours in each single project. We save time because they don't have to reinvent the wheel because code that's not written doesn't need to be tested and maintained. Since we can release our products earlier, we can be more agile iterate more quickly which means we have a better chance of success.  
+We save hundreds of hours in each project because we don't have to reinvent the wheel. Code that's not written doesn't need to be tested and maintained. This in turn means that we release our products earlier and can be more agile.  
 
 ### We Develop Ourselves 
-Many regular people(including me) choose to become a developer because it's easy to learn programming using Python. Many programmers become web developers because it's easy to make web applications using Django. But, our self-development doesn't stop there. By using Django and learning about its included batteries, we learn how to solve common problems. And since Django offers the best solution to most problems, we get a high quality education. The range of things one can learn by using Django is very wide, for example:     
+Many choose to become a developer because it's easy to learn programming using Python(like I did). Many programmers become web developers because it's easy to make web applications using Django. But, our self-development doesn't stop there. By using Django and learning about its included batteries, we learn how to solve common problems. And since Django offers the best solution to most problems, we get a high quality education. The range of things one can learn by using Django is very wide, for example:     
 - Organization of apps and modules   
 - Organization of settings and configurations  
 - Architectural and design patterns like MVC , signals, etc.  
+- Database ORMs
 - Important security issues like CSRF token, hashing passwords, etc.  
 
 
 ### We Save Money 
-Since we save time, the business saves money. Without Django, many budgets would become unacceptable and many MVPs would be much less interesting. Thanks to Django, we do more with less resources.  
+As we, the devs, save time the business saves money. Without Django, many budgets would have to be cut and many MVPs would be much less interesting. Thanks to Django, we do much more with less resources.  
+That's it. If you'd like to give Django a try, start with the [official tutorial](https://docs.djangoproject.com/en/1.11/intro/tutorial01/). Then, you can go through this excelent [free book](http://www.tangowithdjango.com/book17/) which is a bit outdated but is a great intro to the many different things you can do with Django.  
 If you'd like to be notified when we publish the next article, fill out [this form(redirects to a different domain)]().
