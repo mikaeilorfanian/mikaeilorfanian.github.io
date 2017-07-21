@@ -43,5 +43,7 @@ Of course! There are important tradeoffs that you need to consider before you go
 - The fact that Django comes with batteries means that a lot of things are done the Django way. And, sometimes it's either the Django way or the highway! Many developers choose "micro-frameworks" for this reason.  
 
 
-Bottom line: you should give Django a try. Start with the [official tutorial](https://docs.djangoproject.com/en/1.11/intro/tutorial01/). Then, go through a tutorial and create an application to get a feeling for what you can do with Djagno. This excellent [free book](http://www.tangowithdjango.com/book17/) - which is a bit outdated - is a great intro to the many different things you can do with Django.  
+Bottom line: you should give Django a try. Start with the [official tutorial](https://docs.djangoproject.com/en/1.11/intro/tutorial01/). Then, go through a tutorial and create an application to get a feeling for what you can do with Djagno. This excellent [free book](http://www.tangowithdjango.com/book17/) - which is a bit outdated - is a great resource for doing just that.   
+One last thing: there are many built-in and third party packages and libraries that will save you time and energy, and a very valuable skill to have when using Django is knowing how to plug things into it.  
+
 If you'd like to be notified when we publish the next article, fill out [this form(redirects to a different domain)]().
