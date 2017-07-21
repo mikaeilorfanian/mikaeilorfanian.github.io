@@ -14,7 +14,7 @@ Python and Django are easy to learn. Tens of high quality books and courses are 
 When you Google Django-related questions, the official documentation is usually at the top of the results list. This is quite unique to Django. In fact, the documentation is so good that by actually reading it, a novice programmer can learn new things not only about Django but about web development in general.  
 
 ### Django's Included Batteries Are Powerful and Flexible
-60-90% of what we do on a regular basis uses built-in Django tools: the admin panel, manage.py commands, Django ORM, email, and so on. When we need something that Django doesn't offer, there's often a library that does what we want. Still, Django is almost always flexible enough that we can create our own custom solution if needed.  
+60-90% of what we do on a regular basis uses built-in Django tools: the admin panel, manage.py commands, Django ORM, database migrations, templates, email, and so on. When we need something that Django doesn't offer, there's often a library that does what we want. Still, Django is almost always flexible enough that we can create our own custom solution if needed.  
 
 ### Django and Python Communities Are Mature 
 Python and Django communities have been lead by great people for decades. The leadership has been strong, sensible, and fun and these qualities are the reason why there are so many self-organized Python and Django communities around the world. The communities produce a huge amount of high-quality learning materials and yet they are very welcoming to newcomers and beginners.   
@@ -34,6 +34,14 @@ Many choose to become a developer because it's easy to learn programming using P
 
 
 ### We Save Money 
-As we, the devs, save time the business saves money. Without Django, many budgets would have to be cut and many MVPs would be much less interesting. Thanks to Django, we do much more with less resources.  
-That's it. If you'd like to give Django a try, start with the [official tutorial](https://docs.djangoproject.com/en/1.11/intro/tutorial01/). Then, you can go through this excellent [free book](http://www.tangowithdjango.com/book17/) which is a bit outdated but is a great intro to the many different things you can do with Django.  
+As we, the devs, save time the business saves money. Without Django, many budgets would have to be cut and many MVPs would be much less interesting. Thanks to Django, we do much more with less resources.   
+
+## Any Downsides?  
+Of course! There are important tradeoffs that you need to consider before you go with Django:  
+- Django doesn't provide any help when it comes to non-relational databases.  
+- Django is a synchronous framework which handles requests by creating new threads. This has serious implications. For example, using Django for websockets is not possible(although you can use `django-channels` for that!).  
+- The fact that Django comes with batteries means that a lot of things are done the Django way. And, sometimes it's either the Django way or the highway! Many developers choose "micro-frameworks" for this reason.  
+
+
+Bottom line: you should give Django a try. Start with the [official tutorial](https://docs.djangoproject.com/en/1.11/intro/tutorial01/). Then, go through a tutorial and create an application to get a feeling for what you can do with Djagno. This excellent [free book](http://www.tangowithdjango.com/book17/) - which is a bit outdated - is a great intro to the many different things you can do with Django.  
 If you'd like to be notified when we publish the next article, fill out [this form(redirects to a different domain)]().
