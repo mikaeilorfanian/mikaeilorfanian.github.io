@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+
+        <link href="https://fonts.googleapis.com/css?family=Cutive+Mono|Maven+Pro|Roboto+Mono:300|Syncopate|Special+Elite" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<link rel="stylesheet" type="text/css" href="../../static/blog.css">
+<link rel="stylesheet" href="../../static/codehilite.css">
+<title>Types versus Classes</title>
+<style>
+        * {
+          box-sizing: border-box;
+        }
+        
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+          margin: 0;
+        }
+        
+        /* Style the header */
+        .header {
+          padding: 10px;
+          text-align: center;
+          background: url('../../static/home-header-image-small.jpeg');
+          color: white;
+          font-family: 'Special Elite', cursive;
+          font-style: bold;
+        }
+        
+        /* Increase the font size of the h1 element */
+        .header h1 {
+          font-size: 40px;
+        }
+        .header h2 {font-size: 30px;}
+        
+        /* Hide the link that should open and close the topnav on small screens */
+        .navbar .icon {
+          display: none;
+        }
+        /* Style the top navigation bar */
+        .navbar {
+          overflow: hidden;
+          background-color: rgb(51, 51, 51, 1);
+          font-size: 15px;
+        }
+        
+        /* Style the navigation bar links */
+        .navbar a {
+          float: left;
+          display: block;
+          color: white;
+          text-align: left;
+          padding: 14px 20px;
+          text-decoration: none;
+        }
+        
+        /* Change color on hover */
+        .navbar a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+        
+        /* Column container */
+        .row {  
+          display: flex;
+          flex-wrap: wrap;
+        }
+        
+        /* Create two unequal columns that sits next to each other */
+        /* Sidebar/left column */
+        .side {
+          flex: 30%;
+          background-color: #f1f1f1;
+          padding: 20px;
+        }
+        
+        /* Main column */
+        .main {   
+          flex: 70%;
+          background-color: #f1f1f1;
+          padding: 20px;
+        }
+        
+        /* Footer */
+        .footer {
+          padding: 20px;
+          text-align: center;
+          background: #ddd;
+        }
+        
+        /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 700px) {
+          .row {   
+            flex-direction: column;
+          }
+        }
+        
+        .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          transition: 0.3s;
+        }
+        .card:hover {
+          box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+        article {
+          padding: 2px 16px;
+          background: white;
+          font-family: 'Maven Pro', sans-serif;
+          font-size: 20px;
+          line-height: 1.6;
+        }
+        article h1 {
+            font-size: 40px;
+        }
+        article h2 {
+            font-size: 30px;
+            font-family: 'Maven Pro', sans-serif;
+        }
+        article p {
+          font-family: 'Maven Pro', sans-serif;
+            
+        }
+        blockquote {
+            border-left: 4px solid rgba(51, 51, 51, 0.7);
+            color: rgba(51, 51, 51, 0.7);
+            font-size: 23px;
+            font-family: 'Maven Pro', sans-serif;
+            font-style: italic;
+            line-height: 1.75;
+            margin-bottom: 1.75em;
+            margin-left: -1.05em;
+            padding-left: 0.85em;
+            hyphens: none;
+            quotes: none;
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 40px;
+            margin-inline-end: 40px;
+        }
+        </style>
+
+</head>
+<body>
+    <div class="header">
+        <h1><a href='../../index.html'>Top 1% Developer</a></h1>
+        <h2><a href='../../index.html'>be_in_the_know</a></h2>
+    </div>
+    <div class="navbar" id="myTopnav">
+        
+            <a href="../../index.html">Intro</a>
+        
+            <a href="../technical-articles.html">Technical</a>
+        
+            <a href="#">Employment</a>
+        
+    </div>
+    
+<div class="row">
+    <div class="main">
+        <div class="card">
+            <article>
+                <h1>Types versus Classes</h1>
+<ul>
+<li>Programming to interfaces or types is better than programming to implementation or classes.</li>
+<li>Some programming languages use “duck-typing” not “duck-classing”.</li>
+<li>One of the major additions to Python in recent years is called “Type Hinting” not “Class Hinting”.</li>
+</ul>
+<p>What do these three statements have in common? They imply that the type of an object and its class are not the same thing. Do you know the difference? Knowing it is key if you want to write good object oriented code and benefit from interfaces and duck-typing. <br />
+In this article, we’ll go through what types and classes are and put our newfound knowledge to use by exploring duck-typing and programming to interfaces. Let’s get started!   </p>
+<h2>Type</h2>
+<blockquote>
+<p>The type of an object is just a name for its interface!   </p>
+</blockquote>
+<p>The <em>interface</em> of an object tells you what operations you can run on it. It does this by specifying the methods you can call and what these methods expect and return. Here’s an example:   </p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">SelfDrivingVehicle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destrination</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></div>
+
+
+<p>This interface tells you that objects of type <code>SelfDrivingVehicle</code> must have two methods (<code>start</code> and <code>drive</code>) with the specified signatures. For example, when you ask an object of type <code>SelfDrivingVehicle</code> to <code>drive</code> you should give it the <code>destination</code> as a string (<code>destination</code>: str). <br />
+The type of an object is just a name for its interface. The following snippet shows a <code>Car</code> class whose instances have the <code>SelfDrivingVehicle</code> type because you can ask them to <code>start</code> and <code>drive</code>:   </p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Car</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></div>
+
+
+<p>An object can have multiple interfaces. For example, in the following snippet we add type <code>Iterable</code> (a built-in type in Python) to our <code>Car</code>:   </p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Car</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># required for Vehicle type</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>  <span class="c1"># required for Vehicle type</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># required for Iterator type</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>   <span class="c1"># required for Iterator type</span>
+        <span class="k">pass</span>
+
+<span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">car</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Class</h2>
+<blockquote>
+<p>The class of an object is about its implementation details!   </p>
+</blockquote>
+<p>An object’s class defines its data, representation, and the operations it can perform. An object’s class is about its implementation. <br />
+Let’s implement how <code>Car</code>‘s <code>start</code> and <code>drive</code> methods actually work:   </p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Car</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span>
+
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">==</span> <span class="s1">&#39;on&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">drive_to</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>self.engine</code> and the string "<code>on</code>" are implementation details of <code>Car</code>. They have nothing to do with its type and <code>SelfDrivingVehicle</code> doesn’t mention any of them either. <br />
+An important difference between class and type is that an object can have multiple types but only one class. Most languages have built-in methods for getting the class of an object. For example, in Python you can use <code>type(object)</code> to get <code>object</code>‘s class (which is an oxymoron, of course). But, getting the type of an object is not that easy to do in Python because of duck-typing.   </p>
+<h2>Duck-typing</h2>
+<blockquote>
+<p>It quacks like a duck until it doesn't!   </p>
+</blockquote>
+<p>In Python duck-typing means that at <em>run-time</em> the interpreter looks up methods and attributes <em>only</em> when they are <em>accessed</em>. <br />
+To illustrate this, let’s step through the below block of code using the python debugger:   </p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">just_do_it</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">call_some_methods</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>  <span class="c1"># this is like a breakpoint</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">just_do_it</span><span class="p">()</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">cant_do_it</span><span class="p">()</span>  <span class="c1"># we&#39;re calling a non-existing method here</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="n">call_some_methods</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Since we set a trace (<code>pdb.set_trace()</code>), when we run the code we’ll see something like this:   </p>
+<div class="codehilite"><pre><span></span>$ python3 tvsclsdbg.py
+&gt; tvsclsdbg.py<span class="o">(</span><span class="m">7</span><span class="o">)</span>call_some_methods<span class="o">()</span>
+-&gt; obj.just_do_it<span class="o">()</span>
+<span class="o">(</span>Pdb<span class="o">)</span>
+</pre></div>
+
+
+<p>As you can see Python has created an instance of <code>A</code> and now we’re in the <code>call_come_methods</code> function. The fact that we’re going to call a non-existing method on a doesn’t bother Python because that line of code hasn’t been executed yet. <br />
+Let’s execute the next line of code:   </p>
+<div class="codehilite"><pre><span></span><span class="o">(</span>Pdb<span class="o">)</span> next
+&gt; tvsclsdbg.py<span class="o">(</span><span class="m">8</span><span class="o">)</span>call_some_methods<span class="o">()</span>
+-&gt; obj.cant_do_it<span class="o">()</span>
+<span class="o">(</span>Pdb<span class="o">)</span>
+</pre></div>
+
+
+<p>Python ran <code>obj.just_do_it()</code> and still no errors were thrown. Finally, we try to call the non-existing <code>cant_do_it()</code> method:   </p>
+<div class="codehilite"><pre><span></span><span class="o">(</span>Pdb<span class="o">)</span> next
+AttributeError: <span class="s1">&#39;A&#39;</span> object has no attribute <span class="s1">&#39;cant_do_it&#39;</span>
+&gt; tvsclsdbg.py<span class="o">(</span><span class="m">8</span><span class="o">)</span>call_some_methods<span class="o">()</span>
+-&gt; obj.cant_do_it<span class="o">()</span>
+<span class="o">(</span>Pdb<span class="o">)</span>
+</pre></div>
+
+
+<p>And we crashed as we tried to invoke the non-existing method. This is what duck-typing means. The methods and attributes you call are not resolved until you execute the line that makes those calls. You might be wondering why this is a big deal? Read on.   </p>
+<h2>Duck-typing Makes Code User-friendly</h2>
+<p>It is a well-known principle of object oriented programming that relying on interfaces is better than relying on implementation (more on this later). Duck-typing allows you to take this idea to an extreme because the compiler and interpreter don’t care about the class of objects you pass around in your program! As a result you can write code that’s powerful yet user friendly. <br />
+For example, Python’s decorators allow you to apply the decorator pattern to any object with just one line of code. Or, with <code>mock.patch</code> you can easily change the behavior of any object during run-time. <br />
+So, we can make simple yet powerful structures in our programs because of duck-typing’s reliance on types rather than classes. If this is such a good idea, then how can we use it to our advantage in our programs? By programming to interfaces instead of implementation…    </p>
+<h2>Programming to Interfaces</h2>
+<p>Although the Python language always relies on interfaces that doesn’t stop us from writing code that depends on concrete implementations:   </p>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Car</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span>
+
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">==</span> <span class="s1">&#39;on&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_drive_to</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CarNotOnError</span>
+
+<span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">car</span><span class="o">.</span><span class="n">engine</span> <span class="o">==</span> <span class="s1">&#39;on&#39;</span><span class="p">:</span>  <span class="c1"># relies on implementation</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">_drive_to</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>  <span class="c1"># relies on implementation</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span>  <span class="c1"># relies on implementation</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">_drive_to</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>   <span class="c1"># relies on implementation</span>
+</pre></div>
+
+
+<p>The code that uses an instance of the car object has knowledge of the following implementation details about it: <br />
+- car has an engine attribute. <br />
+- car cannot be driven if the engine is not on <br />
+- engine can be turned on by a simple assignment    </p>
+<p>Let’s imagine that <code>car</code> is used in similar way throughout the code-base. If any of the implementation details of <code>car</code> changes (e.g. before the <code>engine</code> can be <code>on</code> there must be a minimum level of electric charge in the car’s <code>battery</code> attribute) then you’d have to modify code in multiple places throughout the code-base and make sure you haven’t missed anything! <br />
+Now, imagine that programming to implementation details (or classes) is habit among the developers programming in this code-base. You’d probably end up with a lot of fragile, hard-to-test, hard-to-read, and hard-to-fix code. <br />
+But, by programming to interfaces you end up with code such as   </p>
+<div class="codehilite"><pre><span></span><span class="nv">car</span> <span class="o">=</span> Car<span class="o">()</span>
+car.drive<span class="o">(</span>destination<span class="o">)</span>
+</pre></div>
+
+
+<p>Now, we’ve reduced our dependency on <code>car</code> to just one method. Instead of manipulating the car directly, we simply ask it to <code>drive</code>. Our code has no knowledge of how <code>car</code> is implemented. We depend only on the interface defined by the <code>SelfDrivgingVehicle</code> type.   </p>
+            </article>
+        </div>
+    </div>
+</div>
+
+    <div class="footer">
+        <a href='#'>Subscribe</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href='#'>GitHub</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href='#'>About</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href='#'>Contact Me</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+</body>
+</html>
