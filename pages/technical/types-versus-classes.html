@@ -135,16 +135,20 @@ The type of an object is just a name for its interface. The following snippet sh
 
 <p>An object can have multiple interfaces. For example, in the following snippet we add type <code>Iterable</code> (a built-in type in Python) to our <code>Car</code>:   </p>
 <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">Car</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># required for Vehicle type</span>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="c1"># required for Vehicle type</span>
         <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>  <span class="c1"># required for Vehicle type</span>
+    <span class="k">def</span> <span class="nf">drive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">destination</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>  
+        <span class="c1"># required for Vehicle type</span>
         <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># required for Iterator type</span>
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="c1"># required for Iterator type</span>
         <span class="k">pass</span>
 
-    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>   <span class="c1"># required for Iterator type</span>
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>   
+        <span class="c1"># required for Iterator type</span>
         <span class="k">pass</span>
 
 <span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">()</span>
@@ -182,9 +186,12 @@ To illustrate this, let’s step through the below block of code using the pytho
         <span class="k">pass</span>
 
 <span class="k">def</span> <span class="nf">call_some_methods</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">A</span><span class="p">):</span>
-    <span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>  <span class="c1"># this is like a breakpoint</span>
+    <span class="c1"># this is like a breakpoint</span>
+    <span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>  
     <span class="n">obj</span><span class="o">.</span><span class="n">just_do_it</span><span class="p">()</span>
-    <span class="n">obj</span><span class="o">.</span><span class="n">cant_do_it</span><span class="p">()</span>  <span class="c1"># we&#39;re calling a non-existing method here</span>
+
+    <span class="c1"># let&#39;s call a non-existing method</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">blah</span><span class="p">()</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
 <span class="n">call_some_methods</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -203,21 +210,21 @@ To illustrate this, let’s step through the below block of code using the pytho
 Let’s execute the next line of code:   </p>
 <div class="codehilite"><pre><span></span><span class="o">(</span>Pdb<span class="o">)</span> next
 &gt; tvsclsdbg.py<span class="o">(</span><span class="m">8</span><span class="o">)</span>call_some_methods<span class="o">()</span>
--&gt; obj.cant_do_it<span class="o">()</span>
+-&gt; obj.blah<span class="o">()</span>
 <span class="o">(</span>Pdb<span class="o">)</span>
 </pre></div>
 
 
-<p>Python ran <code>obj.just_do_it()</code> and still no errors were thrown. Finally, we try to call the non-existing <code>cant_do_it()</code> method:   </p>
+<p>Python ran <code>obj.just_do_it()</code> and still no errors were thrown. Finally, we try to call the non-existing <code>blah()</code> method:   </p>
 <div class="codehilite"><pre><span></span><span class="o">(</span>Pdb<span class="o">)</span> next
-AttributeError: <span class="s1">&#39;A&#39;</span> object has no attribute <span class="s1">&#39;cant_do_it&#39;</span>
+AttributeError: <span class="s1">&#39;A&#39;</span> object has no attribute <span class="s1">&#39;blah&#39;</span>
 &gt; tvsclsdbg.py<span class="o">(</span><span class="m">8</span><span class="o">)</span>call_some_methods<span class="o">()</span>
--&gt; obj.cant_do_it<span class="o">()</span>
+-&gt; obj.blah<span class="o">()</span>
 <span class="o">(</span>Pdb<span class="o">)</span>
 </pre></div>
 
 
-<p>And we crashed as we tried to invoke the non-existing method. This is what duck-typing means. The methods and attributes you call are not resolved until you execute the line that makes those calls. You might be wondering why this is a big deal? Read on.   </p>
+<p>And we crashed as we tried to invoke the non-existing method. This is what duck-typing means. The methods and attributes you call are not resolved until you execute the line that makes those calls. You might be wondering why this is a big deal. Read on.   </p>
 <h2>Duck-typing Makes Code User-friendly</h2>
 <p>It is a well-known principle of object oriented programming that relying on interfaces is better than relying on implementation (more on this later). Duck-typing allows you to take this idea to an extreme because the compiler and interpreter don’t care about the class of objects you pass around in your program! As a result you can write code that’s powerful yet user friendly. <br />
 For example, Python’s decorators allow you to apply the decorator pattern to any object with just one line of code. Or, with <code>mock.patch</code> you can easily change the behavior of any object during run-time. <br />
@@ -235,11 +242,15 @@ So, we can make simple yet powerful structures in our programs because of duck-t
             <span class="k">raise</span> <span class="n">CarNotOnError</span>
 
 <span class="n">car</span> <span class="o">=</span> <span class="n">Car</span><span class="p">()</span>
-<span class="k">if</span> <span class="n">car</span><span class="o">.</span><span class="n">engine</span> <span class="o">==</span> <span class="s1">&#39;on&#39;</span><span class="p">:</span>  <span class="c1"># relies on implementation</span>
-    <span class="n">car</span><span class="o">.</span><span class="n">_drive_to</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>  <span class="c1"># relies on implementation</span>
+<span class="c1"># relies on implementation</span>
+<span class="k">if</span> <span class="n">car</span><span class="o">.</span><span class="n">engine</span> <span class="o">==</span> <span class="s1">&#39;on&#39;</span><span class="p">:</span>  
+    <span class="c1"># relies on implementation</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">_drive_to</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>  
 <span class="k">else</span><span class="p">:</span>
-    <span class="n">car</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span>  <span class="c1"># relies on implementation</span>
-    <span class="n">car</span><span class="o">.</span><span class="n">_drive_to</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>   <span class="c1"># relies on implementation</span>
+    <span class="c1"># relies on implementation</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="s1">&#39;on&#39;</span>  
+    <span class="c1"># relies on implementation</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">_drive_to</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
 </pre></div>
 
 
