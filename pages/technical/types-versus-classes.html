@@ -78,6 +78,26 @@
             margin-inline-start: 40px;
             margin-inline-end: 40px;
         }
+        .subscribe-comment-bubble {
+          position:relative;
+          padding:5px;
+          margin:15px;
+          color:#333;
+          background:rgb(205, 255, 180);
+          /* css3 */
+          -webkit-border-radius:10px;
+          -moz-border-radius:10px;
+          border-radius:10px;
+        }
+
+        .subscribe-comment-bubble p {font-size:18px; line-height:1.25em;}
+
+        @media screen and (max-width: 700px) {
+          article h1 {
+            font-size: 25px;
+          }
+          article h2 {font-size: 20px;}
+        }
         </style>
 
 </head>
@@ -88,11 +108,11 @@
     </div>
     <div class="navbar" id="myTopnav">
         
-            <a href="../../index.html">Intro</a>
+            <a href="../../index.html">Home</a>
         
             <a href="../technical-articles.html">Technical</a>
         
-            <a href="#">Employment</a>
+            <a href="../../about.html">About</a>
         
     </div>
     
@@ -268,7 +288,13 @@ car.drive<span class="o">(</span>destination<span class="o">)</span>
 
 <p>Now, we’ve reduced our dependency on <code>car</code> to just one method. Instead of manipulating the car directly, we simply ask it to <code>drive</code>. Our code has no knowledge of how <code>car</code> is implemented. We depend only on the interface defined by the <code>SelfDrivgingVehicle</code> type.   </p>
             </article>
+            <br>
         </div>
+          <div class="subscribe-comment-bubble">
+            <p>
+              Did you like the article? Leave a comment below and <a href='http://eepurl.com/gwvyCT'><strong>subscribe</strong></a> to receive new articles in your mail box!
+            </p>
+          </div>
     </div>
 </div>
 
