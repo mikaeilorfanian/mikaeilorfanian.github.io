@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+
+        <link href="https://fonts.googleapis.com/css?family=Cutive+Mono|Maven+Pro|Roboto+Mono:300|Syncopate|Special+Elite" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+<link rel="stylesheet" type="text/css" href="../../static/blog.css">
+<link rel="stylesheet" href="../../static/codehilite.css">
+<title>Preface</title>
+<style>
+        /* Style the header */
+        .header {
+          background: url('../../static/home-header-image-small.jpeg');
+        }
+
+        .main {
+          padding: 5px;
+        }
+        
+        .row {
+          display: contents;
+          flex-wrap: inherit;
+        }
+
+        .card {
+          margin: 5px;
+        }
+        
+        /* Footer */
+        .footer {
+          padding: 20px;
+          text-align: center;
+          background: #ddd;
+        }
+        
+        .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+          transition: 0.3s;
+        }
+
+        article {
+          padding: 2px 16px;
+          background: white;
+          font-family: 'Maven Pro', sans-serif;
+          font-size: 14px;
+          line-height: 1.6;
+        }
+        article h1 {
+            font-size: 30px;
+        }
+        article h2 {
+            font-size: 20px;
+            font-family: 'Maven Pro', sans-serif;
+        }
+        article p {
+          font-family: 'Maven Pro', sans-serif;
+            
+        }
+        blockquote {
+            border-left: 4px solid rgba(51, 51, 51, 0.7);
+            color: rgba(51, 51, 51, 0.7);
+            font-size: 23px;
+            font-family: 'Maven Pro', sans-serif;
+            font-style: italic;
+            line-height: 1.75;
+            margin-bottom: 1.75em;
+            margin-left: -1.05em;
+            padding-left: 0.85em;
+            hyphens: none;
+            quotes: none;
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 40px;
+            margin-inline-end: 40px;
+        }
+        .subscribe-comment-bubble {
+          position:relative;
+          padding:5px;
+          margin:15px;
+          color:#333;
+          background:rgb(205, 255, 180);
+          /* css3 */
+          -webkit-border-radius:10px;
+          -moz-border-radius:10px;
+          border-radius:10px;
+        }
+
+        .subscribe-comment-bubble p {font-size:18px; line-height:1.25em;}
+
+        @media screen and (max-width: 700px) {
+          article h1 {
+            font-size: 25px;
+          }
+          article h2 {font-size: 20px;}
+        }
+        </style>
+
+</head>
+<body>
+    <div class="header">
+        <h1><a href='../../index.html'>Top 1% Developer</a></h1>
+        <h2><a href='../../index.html'>be_in_the_know</a></h2>
+    </div>
+    <div class="navbar" id="myTopnav">
+        
+            <a href="https://mikaeilorfanian.github.io/index.html">Home</a>
+        
+            <a href="https://mikaeilorfanian.github.io/pages/philosophy-articles.html">Philosophy</a>
+        
+            <a href="https://mikaeilorfanian.github.io/pages/technical-articles.html">Technical</a>
+        
+            <a href="https://mikaeilorfanian.github.io/pages/scifi-documentary.html">Scifi Documentary</a>
+        
+            <a href="https://mikaeilorfanian.github.io/wiki.html">Wiki</a>
+        
+            <a href="https://mikaeilorfanian.github.io/projects.html">Projects</a>
+        
+            <a href="https://mikaeilorfanian.github.io/about.html">About</a>
+        
+    </div>
+    
+<div class="row">
+    <div class="main">
+        <div class="card">
+            <article>
+                <h1>Preface</h1>
+<h2>What is this book about?</h2>
+<p>This book is a sci-fi documentary about how technologies - that our within our grasp today - have transformed software development in the 2040s. That's right, we're going to look 20 years into the future to get a taste for what's coming!</p>
+<h2>Why? Well, we're Stuck!</h2>
+<blockquote>
+<p>We were promised IDEs that write code for us; all we got was "dark mode"!</p>
+</blockquote>
+<p>My reading of old texts gives me the impression that when it comes to the tools, technologies, and processes we use daily to create software there hasn't been much progress in the last 20-50 years.<br />
+This is a counter-intuitive claim so let's take a look at some examples:<br />
+- IDEs and code editors are painfully outdated: Emacs is 50 years old and IDEs with features comparable to what we have today appeared in the early 1970s.<br />
+- Revision control tools haven't seen major innovations since git was introduced, and git captures only a fraction of the context around changes in software.<br />
+- Input devices (mouse, keyboard) haven't changed for 50 years.<br />
+- User interfaces (GUIs or command line) for our desktop environments are also 50 years old.<br />
+- Software development methodologies like Scrum and XP are 25 years old (refining ideas from the 1950s), and we still disagree on what "agile" means leading to some of its founders' declaration that "agile is dead"!<br />
+- Best practices: TDD (mid 90s), Pragmatic Programmer (1999), Clean Code (2009) and other collections of best practices have great potential but we have no way of enfocing their use.<br />
+- We don't know what makes developers productive, let alone have tools for measuring it.</p>
+<p>Now let's consider what happened during the first couple of decades after computers became useful in the 1940s. In the beginning, Programmers tested programs by doing calculations by hand. To implement programs they punched holes onto paper. Within 2 decades they had invented human readable programming languages, compilers, editors, debuggers, IDEs, GUIs, and operating systems. These inventions made those programmers several thousand times more productive. These days the most ambitious developers chase 10X productivity gains!</p>
+<h2>Let's get to work!</h2>
+<p>You might be wondering what's behind this slow-down. There are different reasons, but I think the main reason is lack of vision. Therefore, this book is a vision of a better future, an exciting future not about incremental improvements, but revolutionary ones. A future you'd be excited to live in. A future so great you'd want to <strong>get busy now to make it possible</strong>.</p>
+            </article>
+            <br>
+            
+        </div>
+        <div class="subscribe-comment-bubble">
+          <p>
+            Did you like what you read? <a href='http://eepurl.com/gwvyCT'><strong>Subscribe</strong></a> to get notified when I publish new materials!
+          </p>
+        </div>
+    </div>
+</div>
+
+    <div class="footer">
+        <a href='http://eepurl.com/gwvyCT'>Subscribe</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href='https://github.com/mikaeilorfanian/mikaeilorfanian.github.io'>GitHub</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href='https://mikaeilorfanian.github.io/about.html'>About</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+</body>
+</html>
