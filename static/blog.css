@@ -140,3 +140,9 @@ body {
   font-family: 'Maven Pro', sans-serif;
   text-decoration: none;
 }
+
+.featured {
+    font-style: italic;
+    color: limegreen;
+    font-size: 15px;
+}
